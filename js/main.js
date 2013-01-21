@@ -1,11 +1,3 @@
-$('#submit_signup').on('click', function(evt){
-  alert('You signed up...I think');
-});
-  
-$('#submit_login').on('click', function(evt){
-  alert('You logged in...I think');
-});
-
 function menu(){
   menuLayer = new Kinetic.Layer();
 

@@ -11,10 +11,10 @@
     <link rel="canonical" href="index.html">
     <link rel="stylesheet" href="css/normalize.css">
     <link rel="stylesheet" href="css/main.css">
-    <script src='js/angular.min.js'></script>
+    <script src='js/angular.js'></script>
     <script src='js/kinetic-v4.3.1.min.js'></script>
     <script src='js/jquery-1.9.0.min.js'></script>
-    
+    <script src='js/service.js'></script>
   </head>
   <body bgcolor='#777'>
     <div id='container'>
@@ -22,29 +22,28 @@
       </div>
       <div id='login'>
         <form method='POST'>
-            <input type='text' name='username_login' placeholder='username' />
+            <input type='text' id='username_login' placeholder='username' />
             <br>
-            <input type='password' name='password_login' placeholder='password' />
+            <input type='password' id='password_login' placeholder='password' />
             <br>
             <input type='submit' id='submit_login' value='Login' />
         </form>
       </div>
-      <div id='signup'>
-        <form method='POST'>
-            <input type='text' name='full_name_signup' placeholder='your name' />
+      <div ng-controller="signupController" id='signup'>
+        <form ng-submit='usersPOST()' method='POST'>
+            <input type='text' id='fullName_signup' required ng-model='user.fullName' placeholder='your name' />
             <br>
-            <input type='text' name='username_signup' placeholder='username' />
+            <input type='text' id='username_signup' required ng-model='user.username' placeholder='username' />
             <br>
-            <input type='text' name='email_signup' placeholder='email' />
+            <input type='text' id='email_signup' required ng-model='user.email' placeholder='email' />
             <br>
-            <input type='password' name='password_signup' placeholder='password' />
+            <input type='password' id='password_signup' required ng-model='user.password' placeholder='password' />
             <br>
             <input type='submit' id='submit_signup' value='Signup' />
         </form>
       </div>
       <script src='js/resize.js'></script>
       <script src='js/main.js'></script>
-      <script src='js/service.js'></script>
     </div>
   </body>
 </html>

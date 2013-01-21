@@ -19,10 +19,15 @@
 	color: #555;
 	border-radius: 4px;
 	border: 1px solid #aaa;
+	-webkit-appearance:none;
+	-moz-appearance:none;
 }
 #login{
 	position: fixed;
 	text-align: center;
+}
+input:invalid {
+    box-shadow: none;
 }
 #login input {
 	margin-top: 5px;
@@ -32,6 +37,8 @@
 	color: #555;
 	border-radius: 4px;
 	border: 1px solid #aaa;
+	-webkit-appearance:none;
+	-moz-appearance:none;
 }
 
 #container{
