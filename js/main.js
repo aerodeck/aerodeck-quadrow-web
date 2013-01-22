@@ -157,43 +157,43 @@ var match = {
         x: 142,
         y: 20,
         width: 47,
-        height: 50
+        height: 310
       });
       var slot2 = new Kinetic.Rect({
         x: 188,
         y: 20,
         width: 47,
-        height: 50
+        height: 310
       });
       var slot3 = new Kinetic.Rect({
         x: 233,
         y: 20,
         width: 47,
-        height: 50
+        height: 310
       });
       var slot4 = new Kinetic.Rect({
         x: 278,
         y: 20,
         width: 47,
-        height: 50
+        height: 310
       });
       var slot5 = new Kinetic.Rect({
         x: 323,
         y: 20,
         width: 47,
-        height: 50
+        height: 310
       });
       var slot6 = new Kinetic.Rect({
         x: 368,
         y: 20,
         width: 47,
-        height: 50
+        height: 310
       });
       var slot7 = new Kinetic.Rect({
         x: 413,
         y: 20,
         width: 47,
-        height: 50
+        height: 310
       });
       
 	  var gback = new Kinetic.Text({
@@ -219,13 +219,7 @@ var match = {
 		chip.setOffset({
 	      x: chip.getWidth() / 2
 	    });
-        gameLayer.add(slot1);
-        gameLayer.add(slot2);
-        gameLayer.add(slot3);
-        gameLayer.add(slot4);
-        gameLayer.add(slot5);
-        gameLayer.add(slot6);
-        gameLayer.add(slot7);
+
         slot1.on('click', function(evt){
       	  chip.transitionTo({
 		    x: 163,
@@ -293,6 +287,13 @@ var match = {
 
 
 	    gameLayer.add(board);
+	    gameLayer.add(slot1);
+        gameLayer.add(slot2);
+        gameLayer.add(slot3);
+        gameLayer.add(slot4);
+        gameLayer.add(slot5);
+        gameLayer.add(slot6);
+        gameLayer.add(slot7);
 		gameLayer.add(gback);
 		gameLayer.add(userLabel);
   	    stage.add(gameLayer);
