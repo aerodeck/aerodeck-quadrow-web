@@ -1,3 +1,5 @@
+
+
 function menu(){
   menuLayer = new Kinetic.Layer();
 
@@ -57,7 +59,8 @@ function menu(){
   stage.add(menuLayer);
   
   play.on('click', function(evt){
-    alert('Play a Match')
+    menuLayer.hide()
+    match.game()
   });
   login.on('click', function(evt){
     menuLayer.hide()
@@ -145,7 +148,166 @@ var user = {
   }
 }
 
+var match = {
+	game : function(){ 
+	  var gameLayer = new Kinetic.Layer();
+	  var layer = new Kinetic.Layer();
 
+      var slot1 = new Kinetic.Rect({
+        x: 142,
+        y: 20,
+        width: 47,
+        height: 50
+      });
+      var slot2 = new Kinetic.Rect({
+        x: 188,
+        y: 20,
+        width: 47,
+        height: 50
+      });
+      var slot3 = new Kinetic.Rect({
+        x: 233,
+        y: 20,
+        width: 47,
+        height: 50
+      });
+      var slot4 = new Kinetic.Rect({
+        x: 278,
+        y: 20,
+        width: 47,
+        height: 50
+      });
+      var slot5 = new Kinetic.Rect({
+        x: 323,
+        y: 20,
+        width: 47,
+        height: 50
+      });
+      var slot6 = new Kinetic.Rect({
+        x: 368,
+        y: 20,
+        width: 47,
+        height: 50
+      });
+      var slot7 = new Kinetic.Rect({
+        x: 413,
+        y: 20,
+        width: 47,
+        height: 50
+      });
+      
+	  var gback = new Kinetic.Text({
+	    x: 520,
+		y: 20,
+		text: 'Back',
+		fontSize: 20,
+		fontFamily: 'verdana',
+		fill: '#555'
+	  });
+	  var chipImg = new Image();
+	  var boardImg = new Image();
+      
+      chipImg.onload = function(){
+
+	    var chip = new Kinetic.Image({
+          x: stage.getWidth() / 2,
+          y: 20,
+          image: chipImg,
+          height: 43,
+          width: 43
+        });
+		chip.setOffset({
+	      x: chip.getWidth() / 2
+	    });
+        gameLayer.add(slot1);
+        gameLayer.add(slot2);
+        gameLayer.add(slot3);
+        gameLayer.add(slot4);
+        gameLayer.add(slot5);
+        gameLayer.add(slot6);
+        gameLayer.add(slot7);
+        slot1.on('click', function(evt){
+      	  chip.transitionTo({
+		    x: 163,
+		    duration: 1,
+		    easing: 'ease-in-out'
+		  });
+        })
+        slot2.on('click', function(evt){
+          chip.transitionTo({
+		    x: 209.5,
+		    duration: 1,
+		    easing: 'ease-in-out'
+		  });
+        })
+        slot3.on('click', function(evt){
+          chip.transitionTo({
+		    x: 255,
+		    duration: 1,
+		    easing: 'ease-in-out'
+		  });
+        })
+        slot4.on('click', function(evt){
+          chip.transitionTo({
+		    x: stage.getWidth() / 2 + .5,
+		    duration: 1,
+		    easing: 'ease-in-out'
+		  });
+        })
+        slot5.on('click', function(evt){
+          chip.transitionTo({
+		    x: 346,
+		    duration: 1,
+		    easing: 'ease-in-out'
+		  });
+        })
+        slot6.on('click', function(evt){
+          chip.transitionTo({
+		    x: 391.5,
+		    duration: 1,
+		    easing: 'ease-in-out'
+		  });
+        })
+        slot7.on('click', function(evt){
+          chip.transitionTo({
+		    x: 437,
+		    duration: 1,
+		    easing: 'ease-in-out'
+		  });
+        })
+	    gameLayer.add(chip);
+
+      }
+	  boardImg.onload = function(){
+	    var board = new Kinetic.Image({
+          x: stage.getWidth() / 2,
+          y: stage.getHeight() / 2,
+          image: boardImg,
+          height: 260,
+          width: 320
+        });
+        board.setOffset({
+          x: board.getWidth() / 2,
+          y: board.getHeight() /2
+        });
+
+
+	    gameLayer.add(board);
+		gameLayer.add(gback);
+		gameLayer.add(userLabel);
+  	    stage.add(gameLayer);
+	  }
+      
+	  gback.on('click', function(evt){
+        gameLayer.hide()
+        menu();
+      }); 
+
+  	  chipImg.src = 'images/quadrow_chip1.png';
+      boardImg.src = 'images/quadrow_board.png';
+      
+	}
+}
 
 
 
