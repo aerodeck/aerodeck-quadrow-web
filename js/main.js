@@ -1,4 +1,8 @@
-
+$(function() {
+   $(window).keypress(function(e) {
+       var key = e.which;
+   });
+});
 
 function menu(){
   menuLayer = new Kinetic.Layer();
@@ -206,20 +210,76 @@ var match = {
 	  });
 	  var chipImg = new Image();
 	  var boardImg = new Image();
-      
-      chipImg.onload = function(){
-
-	    var chip = new Kinetic.Image({
+	  var chipCopyImg = new Image();
+	  boardImg.onload = function(){
+	    var board = new Kinetic.Image({
           x: stage.getWidth() / 2,
+          y: stage.getHeight() / 2,
+          image: boardImg,
+          height: 260,
+          width: 320
+        });
+        board.setOffset({
+          x: board.getWidth() / 2,
+          y: board.getHeight() /2
+        });
+        var chip = new Kinetic.Image({
+          x: stage.getWidth() / 2 + .5,
           y: 20,
           image: chipImg,
           height: 43,
           width: 43
         });
-		chip.setOffset({
+        chip.setOffset({
 	      x: chip.getWidth() / 2
 	    });
 
+        
+        chip.on('click', function(evt){
+
+          var chipCopy = new Kinetic.Image({
+            x: chip.getX(),
+            y: chip.getY(),
+            image: chipCopyImg,
+            height: chip.getHeight(),
+            width: chip.getWidth()
+          });
+          chipCopy.setOffset({
+	        x: chipCopy.getWidth() / 2
+	      });
+
+          if (chip.getX() == 163 || chip.getX() == 209.5 || chip.getX() == 255 || 
+          	  chip.getX() == stage.getWidth() / 2 + .5 || chip.getX() == 346 || chip.getX() == 391.5 || 
+          	  chip.getX() == 437){
+            var chipAnim = new Kinetic.Animation(function(frame) {
+              chipCopy.setY(chipCopy.getY() + 9.55);
+              if (chipCopy.getY() > 280){
+                chipAnim.stop();
+              }
+            }, gameLayer);
+            gameLayer.add(chipCopy);
+            gameLayer.draw();
+          	chipAnim.start();
+          }else{
+            null
+          }
+          
+          
+        });
+	    gameLayer.add(board);
+	    gameLayer.add(gback);
+	    gameLayer.add(userLabel);
+		gameLayer.add(slot1);
+        gameLayer.add(slot2);
+        gameLayer.add(slot3);
+        gameLayer.add(slot4);
+        gameLayer.add(slot5);
+        gameLayer.add(slot6);
+        gameLayer.add(slot7);
+        gameLayer.add(chip);
+		gameLayer.draw();
+        stage.add(gameLayer);
+        
         slot1.on('click', function(evt){
       	  chip.transitionTo({
 		    x: 163,
@@ -269,36 +329,10 @@ var match = {
 		    easing: 'ease-in-out'
 		  });
         })
-	    gameLayer.add(chip);
-
-      }
-	  boardImg.onload = function(){
-	    var board = new Kinetic.Image({
-          x: stage.getWidth() / 2,
-          y: stage.getHeight() / 2,
-          image: boardImg,
-          height: 260,
-          width: 320
-        });
-        board.setOffset({
-          x: board.getWidth() / 2,
-          y: board.getHeight() /2
-        });
+         
+	  }      
 
 
-	    gameLayer.add(board);
-	    gameLayer.add(slot1);
-        gameLayer.add(slot2);
-        gameLayer.add(slot3);
-        gameLayer.add(slot4);
-        gameLayer.add(slot5);
-        gameLayer.add(slot6);
-        gameLayer.add(slot7);
-		gameLayer.add(gback);
-		gameLayer.add(userLabel);
-  	    stage.add(gameLayer);
-	  }
-      
 	  gback.on('click', function(evt){
         gameLayer.hide()
         menu();
@@ -306,7 +340,7 @@ var match = {
 
   	  chipImg.src = 'images/quadrow_chip1.png';
       boardImg.src = 'images/quadrow_board.png';
-      
+      chipCopyImg.src = 'images/quadrow_chip1.png';
 	}
 }
 
