@@ -18,7 +18,6 @@ function usersController($scope, $http) {
 function signupController($scope, $http, $location) {
   $scope.user = {};
   $scope.usersPOST = function(){
-    
     $http(
   	  {
   	    method: 'POST', 
@@ -35,5 +34,23 @@ function signupController($scope, $http, $location) {
       error(function(data, status, headers, config) {
         alert('Error: Server Failed');
       });
+  }
+}
+function loginController($scope, $http) {
+  $scope.usersQueryGET = function(){
+    /*$http(
+      {
+        method: 'GET', 
+  	    url: 'http://localhost:8000/users?username=' + $scope.user.username, 
+  	    headers: {'Content-Type': 'application/json'}
+  	  }
+  	).
+    success(function(data, status, headers, config) {
+      alert(data)
+    }).
+    error(function(data, status, headers, config) {
+      alert(data)	
+    });
+    )*/
   }
 }
