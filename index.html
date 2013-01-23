@@ -20,11 +20,11 @@
     <div id='container'>
       <div id='canvas'>
       </div>
-      <div id='login'>
+      <div ng-controller="loginController" id='login'>
         <form method='POST'>
-            <input type='text' id='username_login' placeholder='username' />
+            <input type='text' required ng-model='user.username' id='username_login' placeholder='username' />
             <br>
-            <input type='password' id='password_login' placeholder='password' />
+            <input type='password' required ng-model='user.password' id='password_login' placeholder='password' />
             <br>
             <input type='submit' id='submit_login' value='Login' />
         </form>
