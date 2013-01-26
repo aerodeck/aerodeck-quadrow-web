@@ -233,8 +233,6 @@ var match = {
         chip.setOffset({
 	      x: chip.getWidth() / 2
 	    });
-
-        
         chip.on('click', function(evt){
 
           var chipCopy = new Kinetic.Image({
