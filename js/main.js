@@ -4,76 +4,106 @@ $(function() {
    });
 });
 
-function menu(){
-  menuLayer = new Kinetic.Layer();
+function main(){
+  mainLayer = new Kinetic.Layer();
+  optionsLayer = new Kinetic.Layer();
 
+  var current_user;
+  if(localStorage.getItem('logged_in') == 'true'){
+    current_user = localStorage.username;
+  }else{
+    current_user = 'Guest';
+  }
+
+  userLabel = new Kinetic.Text({
+    x: 20,
+    y: 370,
+    text: 'User: ' + current_user,
+    fontSize: 15,
+    fontFamily: 'verdana',
+    fill: '#888' 
+  });
   var quadrow = new Kinetic.Text({
-    x: stage.getWidth() / 2,
-    y: stage.getHeight() / 2 - 150,
+    x: 40,
+    y: 40,
     text: 'Quadrow',
-    fontSize: 60,
+    fontSize: 40,
     fontFamily: 'verdana',
     fill: '#FF4500'
   });
   
   var play = new Kinetic.Text({
-    x: stage.getWidth() / 2,
-    y: stage.getHeight() / 2 - 60,
+    x: 40,
+    y: 100,
     text: 'Play',
     fontSize: 40,
     fontFamily: 'verdana',
     fill: '#555'
   });
-  var login = new Kinetic.Text({
-    x: stage.getWidth() / 2,
-    y: stage.getHeight() / 2 + 40,
-    text: 'Login',
-    fontSize: 40,
+  var settings = new Kinetic.Text({
+    x: 490,
+    y: 40,
+    text: 'Settings',
+    fontSize: 20,
     fontFamily: 'verdana',
-    fill: '#555'
+    fill: '#444'
   });
-  var signup = new Kinetic.Text({
-    x: stage.getWidth() / 2,
-    y: stage.getHeight() / 2 - 10,
-    text: 'Signup',
-    fontSize: 40,
+  var logout = new Kinetic.Text({
+    x: 510,
+    y: 80,
+    text: 'Logout',
+    fontSize: 16,
     fontFamily: 'verdana',
-    fill: '#555'  	
-  })
- 
-
-
-  quadrow.setOffset({
-    x: quadrow.getWidth() / 2
+    fill: '#666'
   });
-  play.setOffset({
-    x: play.getWidth() / 2
+  var profile = new Kinetic.Text({
+    x: 510,
+    y: 120,
+    text: 'Profile',
+    fontSize: 16,
+    fontFamily: 'verdana',
+    fill: '#666'
   });
-  login.setOffset({
-    x: login.getWidth() / 2
+  var help = new Kinetic.Text({
+    x: 510,
+    y: 160,
+    text: 'Help',
+    fontSize: 16,
+    fontFamily: 'verdana',
+    fill: '#666'
   });
-  signup.setOffset({
-  x: signup.getWidth() / 2
-  });
-  menuLayer.add(quadrow);
-  menuLayer.add(play);
-  menuLayer.add(login);
-  menuLayer.add(signup);
-  menuLayer.add(userLabel);
-  stage.add(menuLayer);
-  
+  mainLayer.add(quadrow);
+  mainLayer.add(play);
+  mainLayer.add(settings);
+  mainLayer.add(userLabel);
+  optionsLayer.add(logout);
+  optionsLayer.add(profile);
+  optionsLayer.add(help);
+  stage.add(mainLayer);
+  stage.add(optionsLayer);
+  optionsLayer.hide();
   play.on('click', function(evt){
-    menuLayer.hide()
+    mainLayer.hide();
+    optionsLayer.hide();
     match.game()
   });
-  login.on('click', function(evt){
-    menuLayer.hide()
-    user.login()
+  logout.on('click', function(evt){
+    localStorage.setItem('logged_in', 'false');
+    mainLayer.hide();
+    optionsLayer.hide();
+    user.login();
   });
-  signup.on('click', function(evt){
-  	menuLayer.hide()
-    user.signup()
-  });
+  var open = false;
+  settings.on('click', function(evt){
+    if(open == false){
+      optionsLayer.show();
+      open = true;
+    }else{
+      optionsLayer.hide();
+      open = false
+    }
+  })
+  
 }
 
 
@@ -82,7 +112,7 @@ var user = {
   signup : function(){
   	$('#signup').show();
     signupLayer = new Kinetic.Layer();
-
+   
     var signupTitle = new Kinetic.Text({
       x: stage.getWidth() / 2,
       y: stage.getHeight() / 2 - 150,
@@ -105,47 +135,49 @@ var user = {
  
     signupLayer.add(sback);
     signupLayer.add(signupTitle);
-    signupLayer.add(userLabel);
     stage.add(signupLayer);
 
     sback.on('click', function(evt){
       signupLayer.hide()
       $('#signup').hide();
-      menu();
+      user.login();
     }); 
   },
   login : function(){
-  	$('#login').show();
-    loginLayer = new Kinetic.Layer();
+      $('#login').show();
 
-    var loginTitle = new Kinetic.Text({
-      x: stage.getWidth() / 2,
-      y: stage.getHeight() / 2 - 150,
-      text: 'Login',
-      fontSize: 60,
-      fontFamily: 'verdana',
-      fill: '#FF4500'
-    });
-    var lback = new Kinetic.Text({
-	  x: 520,
-	  y: 20,
-	  text: 'Back',
-	  fontSize: 20,
-	  fontFamily: 'verdana',
-	  fill: '#555'
-	})
-    loginTitle.setOffset({
-      x: loginTitle.getWidth() / 2
-    });
-    loginLayer.add(lback);
-    loginLayer.add(loginTitle);
-    loginLayer.add(userLabel);
-    stage.add(loginLayer);
-    lback.on('click', function(evt){
-      loginLayer.hide()
-      $('#login').hide();
-      menu();
-    }); 
+      loginLayer = new Kinetic.Layer();
+
+      var loginTitle = new Kinetic.Text({
+        x: stage.getWidth() / 2,
+        y: stage.getHeight() / 2 - 150,
+        text: 'Login',
+        fontSize: 60,
+        fontFamily: 'verdana',
+        fill: '#FF4500'
+      });
+      var signupTitle = new Kinetic.Text({
+        x: 510,
+        y: 20,
+        text: 'Signup',
+        fontSize: 20,
+        fontFamily: 'verdana',
+        fill: '#555'
+      });    
+      loginTitle.setOffset({
+        x: loginTitle.getWidth() / 2
+      });
+      loginLayer.add(loginTitle);
+      loginLayer.add(signupTitle);
+      stage.add(loginLayer);
+      signupTitle.on('click', function(evt){
+        loginLayer.hide()
+        $('#login').hide();
+        user.signup();
+      });
+      
+    	
+
   },
   update : function(){
 
@@ -267,15 +299,15 @@ var match = {
 	    gameLayer.add(board);
 	    gameLayer.add(gback);
 	    gameLayer.add(userLabel);
-		gameLayer.add(slot1);
-        gameLayer.add(slot2);
-        gameLayer.add(slot3);
-        gameLayer.add(slot4);
-        gameLayer.add(slot5);
-        gameLayer.add(slot6);
-        gameLayer.add(slot7);
-        gameLayer.add(chip);
-		gameLayer.draw();
+		  gameLayer.add(slot1);
+      gameLayer.add(slot2);
+      gameLayer.add(slot3);
+      gameLayer.add(slot4);
+      gameLayer.add(slot5);
+      gameLayer.add(slot6);
+      gameLayer.add(slot7);
+      gameLayer.add(chip);
+		  gameLayer.draw();
         stage.add(gameLayer);
         
         slot1.on('click', function(evt){
@@ -329,11 +361,9 @@ var match = {
         })
          
 	  }      
-
-
 	  gback.on('click', function(evt){
         gameLayer.hide()
-        menu();
+        main();
       }); 
 
   	  chipImg.src = 'images/quadrow_chip1.png';
@@ -350,14 +380,7 @@ var stage = new Kinetic.Stage({
   width: 600,
   height: 400,
 });
-var userLabel = new Kinetic.Text({
-  x: 20,
-  y: 370,
-  text: 'User: Guest',
-  fontSize: 15,
-  fontFamily: 'verdana',
-  fill: '#888' 
-});
+
 window.onload = function() {
   $('#signup').hide();
   $('#login').hide();
@@ -399,7 +422,7 @@ window.onload = function() {
   	if (frame.time >= qduration) {
       quoteAnim.stop();
       layer1.remove();
-      menu();
+      user.login();
     } else {
       quote.setOpacity(frame.time / qduration);
     }

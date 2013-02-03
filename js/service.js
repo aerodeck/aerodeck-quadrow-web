@@ -38,6 +38,32 @@ function signupController($scope, $http, $location) {
 }
 function loginController($scope, $http) {
   $scope.usersQueryGET = function(){
+    // or POST data to server and check there
+    $http(
+      {
+        method: 'GET', 
+        url: 'http://localhost:8000/users?username=' + $scope.username, 
+        headers: {'Content-Type': 'application/json'}
+      }).success(function(data, status, headers, config) {
+        if(data == '"Query field invalid."'){
+          alert('Username invalid');
+        }else{
+          alert('Username is valid')
+          //POST password to server and check is bcrypt hash is the same
+            localStorage.setItem('logged_in', 'true');
+            localStorage.username = $scope.username;
+            $('#login').hide();
+            loginLayer.hide()
+            main();            
+          
+        }
+      }).
+      error(function(data, status, headers, config) {
+        alert('Error: Server Failed');
+      });
+
+    
+
     /*$http(
       {
         method: 'GET', 
